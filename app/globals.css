@@ -1,9 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;700&display=swap');
 @import "tailwindcss";
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
+
+.font-gothic {
+  font-family: 'Gothic A1', sans-serif;
+}
+
 
 @theme inline {
   --color-background: var(--background);
@@ -21,6 +27,7 @@
 
 body {
   background: var(--background);
+  background-color: #131316;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Gothic A1', sans-serif;
 }
