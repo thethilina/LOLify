@@ -10,7 +10,7 @@ export default function Home() {
     <div className="">
       <NavBar/>
       <SideNavBar/>
-      
+     <Image src={noman} alt="feas"/> 
     </div>
   );
 }
