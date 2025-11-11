@@ -9,7 +9,8 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { FaRegUser } from "react-icons/fa6";
 import { IoIosCreate } from "react-icons/io";
 import { useState } from "react";
-console.log("Login component:", Login);
+import SignIn from "./SignIn";
+
 
 export default  function NavBar(){
 
@@ -65,7 +66,7 @@ return(
 
 {/* login popup */}
 
-{isOpened && <div onClick={() => setOpen(false)} className=" w-full h-full bg-black/60 fixed z-51 flex items-center justify-center align-middle"><div onClick={(e) => e.stopPropagation()}><Login  /></div></div>}
+{isOpened && <div onClick={() => setOpen(false)} className=" w-full h-full bg-black/60 fixed z-51 flex items-center justify-center align-middle"><div onClick={(e) => e.stopPropagation()}><SignIn  /></div></div>}
 
 
 </div>

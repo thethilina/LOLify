@@ -8,9 +8,7 @@ import SideNavBar from "../public/components/SideNavBar";
 export default function Home() {
   return (
     <div className="">
-      <NavBar/>
-      <SideNavBar/>
-     <Image src={noman} alt="feas"/> 
+
     </div>
   );
 }

@@ -7,13 +7,13 @@ export default function Login(){
 
 return(
 
-<form className="bg-[#161616]  flex flex-col gap-y-10 text-lg py-25 px-20 border-gray-500 border-2 rounded-xl  items-center ">
+<form className="bg-[#161616]  flex flex-col gap-y-10 text-lg py-20 px-10 border-gray-500 border-2 rounded-xl  items-center ">
 
-<div className="flex flex-col j gap-y-7">
+<div className="flex flex-col items-center justify-center  gap-y-7">
 <input type="text" placeholder="Enter Your User Name" className="rounded-xl py-1 px-4 bg-[#333333] border-gray-400 border-2"/>
 <input type = "password" placeholder="Enter Your Password" className="rounded-xl py-1 px-4 bg-[#333333] border-gray-400 border-2 "/>
 
-<h1 className="text-gray-400">Don't have an account ? Sign up </h1>   
+<h1 className="text-gray-400">Don&apos;t have an account ? Sign up </h1>   
 </div>
 
 <div>
