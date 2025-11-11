@@ -9,7 +9,7 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import { FaRegUser } from "react-icons/fa6";
 import { IoIosCreate } from "react-icons/io";
 import { useState } from "react";
-import SignIn from "./SignIn";
+import Link from "next/link";
 
 
 export default  function NavBar(){
@@ -58,15 +58,14 @@ return(
 
 <button><IoMdNotificationsOutline size={28}/></button>
 
-<button onClick={()=>{setOpen(true)}}  className=" border text-sm border-gray-400 text-[#ffffff] bg-[#246d3c] rounded-2xl py-1 px-3 font-semibold hover:cursor-pointer" > Log In  </button>
+<button onClick={()=>{setOpen(true)}}  className=" border text-sm border-gray-400 text-[#ffffff] bg-[#246d3c] rounded-2xl py-1 px-3 font-semibold hover:cursor-pointer" ><Link href="/Auth/SignIn"> Log In </Link>  </button>
 
 </div>
 
 </nav>
 
-{/* login popup */}
 
-{isOpened && <div onClick={() => setOpen(false)} className=" w-full h-full bg-black/60 fixed z-51 flex items-center justify-center align-middle"><div onClick={(e) => e.stopPropagation()}><SignIn  /></div></div>}
+
 
 
 </div>

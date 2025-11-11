@@ -6,7 +6,7 @@ import { useState } from "react";
 export default function SignIn(){
 
 
-
+const[message , setMessage] = useState<string>("");
 const [profilepic , setProfilepic] = useState<File | null>(null);
 const [coverphoto , setCoverphoto] = useState<File | null>(null);
 const [username , setUsername] = useState("");
@@ -32,7 +32,7 @@ const [password , setPassword] = useState("");
 const handleSubmit = async () => {
   try {
     if(!profilepic || !coverphoto || !username || !email || !age || !password){
-      console.log("Please fill all the fields");
+      setmessage("Please fill in all fields");
       return;
     }
 
@@ -87,18 +87,30 @@ const handleSubmit = async () => {
 };
 
 
+//set error message
+
+const setmessage = (msg:string) => {
+
+setMessage(msg);
+setTimeout(() => {
+  setMessage("");
+},5000);
+
+
+}
+
+
 
 
 return(
 
-<form className="bg-[#161616] items-center flex flex-col gap-y-10 text-lg py-20 px-10  border-gray-500 border-2 rounded-xl  ">
-
+<form className="bg-[#161616] items-center flex flex-col gap-y-10 text-lg   px-5 py-20 rounded-xl  ">
 
 
 
 {/* profile pic and cover photo */}
 
-<div className="h-40 w-full bg-gray-600 flex  justify-between  border-2 border-gray-400  rounded-t-xl" style={{
+<div className="h-40 w-full bg-gray-600 flex  justify-between  border-2 border-gray-400 rounded-lg " style={{
         backgroundImage: coverphoto ? `url(${URL.createObjectURL(coverphoto)})` : "none",
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -122,14 +134,15 @@ return(
 
 
 {/*items*/}
-<div className="flex flex-col  gap-y-7">
-<h1 className="flex items-center gap-x-5 justify-between">Set Your User Name : <input value={username} onChange={(e)=>{setUsername(e.target.value)}} type="text" placeholder="User Name" className="rounded-xl py-1 px-4 bg-[#333333] border-gray-400 border-2"/></h1>
-<h1 className="flex items-center gap-x-5 justify-between">Enter Your Emaill : <input value={email} onChange={(e)=>{setEmail(e.target.value)}}  type = "email" placeholder="Email" className="rounded-xl py-1 px-4 bg-[#333333] border-gray-400 border-2 "/></h1>
-<h1 className="flex items-center gap-x-5 justify-between">Enter Your Age : <input value={age} onChange={(e)=>{setAge(parseInt(e.target.value))}} type = "number" placeholder="Age" className="rounded-xl py-1 px-4 bg-[#333333] border-gray-400 border-2 "/></h1>
-<h1 className="flex items-center gap-x-5 justify-between">Create Your Password : <input value={password} onChange={(e)=>{setPassword(e.target.value)}} type = "password" placeholder="Password" className="rounded-xl py-1 px-4 bg-[#333333] border-gray-400 border-2 "/></h1>
+<div className="flex flex-col    gap-y-10 text-gray-200">
+<h1 className="flex items-center gap-x-5 justify-between">Set Your User Name : <input value={username} onChange={(e)=>{setUsername(e.target.value)}} type="text" placeholder="User Name" className="rounded-xl py-1 px-4 bg-[#333333] "/></h1>
+<h1 className="flex items-center gap-x-5 justify-between">Enter Your Emaill : <input value={email} onChange={(e)=>{setEmail(e.target.value)}}  type = "email" placeholder="Email" className="rounded-xl py-1 px-4 bg-[#333333]  "/></h1>
+<h1 className="flex items-center gap-x-5 justify-between">Enter Your Age : <input value={age} onChange={(e)=>{setAge(parseInt(e.target.value))}} type = "number" placeholder="Age" className="rounded-xl py-1 px-4 bg-[#333333] "/></h1>
+<h1 className="flex items-center gap-x-5 justify-between">Create Your Password : <input value={password} onChange={(e)=>{setPassword(e.target.value)}} type = "password" placeholder="Password" className="rounded-xl py-1 px-4 bg-[#333333] "/></h1>
  
 </div>
 
+{message && <div className="text-red-500 font-medium">{message}</div>}
 <div>
 <button type="button" onClick={handleSubmit} className="font-medium bg-[#897ef1]  py-1 px-7 hover:cursor-pointer hover:bg-[#6d62cf] text-xl rounded-xl ">Sign In</button> 
 </div>
