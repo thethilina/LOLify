@@ -4,7 +4,7 @@ import "./globals.css";
 import NavBar from "../public/components/NavBar";
 import SideNavBar from "../public/components/SideNavBar";
 import NextTopLoader from 'nextjs-toploader';
-
+import {UserProvider} from "@/public/UserContext";
 
 
 const geistSans = Geist({
@@ -29,15 +29,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-         <NavBar/>
+     <UserProvider>     <NavBar/>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >       <SideNavBar/>
               <NextTopLoader color="#246d3c" showSpinner={false} />
 
        
-   <div className="ml-70 mt-20 ">        {children} </div>
-      </body>
+   <div className="ml-70 mt-20 ">          {children} </div>
+      </body></UserProvider>
     </html>
   );
 }

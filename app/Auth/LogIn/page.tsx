@@ -4,9 +4,14 @@ import { useState } from "react";
 import Link from "next/link"
 import { useTopLoader } from 'nextjs-toploader';
 import { useRouter } from "next/navigation";
+import { UserContext } from "@/public/UserContext";
+import { useContext } from "react";
 
 
 export default function Page(){
+
+
+  const { user, setUser } = useContext(UserContext);
 
 const loader = useTopLoader();
 const [username , setUsername] = useState("");
@@ -65,7 +70,7 @@ password
     }
            const data = await UserResponse.json();
    
-   localStorage.setItem("user", JSON.stringify(data.user));
+   setUser(data.user);
 
     router.push("/")
 

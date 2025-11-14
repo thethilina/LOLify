@@ -1,6 +1,7 @@
 "use client"
 
-
+import { UserContext } from "@/public/UserContext";
+import { useContext } from "react";
 import Logo from "../Images/Logo.png"
 import Image from "next/image"
 import { IoIosSearch } from "react-icons/io";
@@ -10,16 +11,51 @@ import { FaRegUser } from "react-icons/fa6";
 import { IoIosCreate } from "react-icons/io";
 import { useState } from "react";
 import Link from "next/link";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useTopLoader } from 'nextjs-toploader';
+
+
 
 
 export default  function NavBar(){
 
 {/* popup login */}
-
+const loader = useTopLoader();
 const [isOpened , setOpen] = useState(false);
 
+const router = useRouter();
+const { user, setUser } = useContext(UserContext);
 
 
+useEffect(() => {
+  setOpen(false); 
+}, [user]);
+
+
+
+
+const handleLogout = async () =>{
+
+try{
+loader.start()
+await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/logout}`)
+setUser(null);
+router.push("/")
+loader.done()
+
+
+}catch(e:any){
+
+    console.log("error logging out" + e.message)
+    loader.done()
+}
+
+
+
+
+
+}
 
 
 
@@ -58,8 +94,27 @@ return(
 
 <button><IoMdNotificationsOutline size={28}/></button>
 
+
+{ user?
+<div>
+<Image onClick={()=>{isOpened?setOpen(false):setOpen(true)}}   src={(user as any).avatar} alt="useravatar" width={40} height={40} className=" rounded-full border   border-gray-600 hover:cursor-pointer"    />
+{isOpened && <div ref={e=>e?.focus()} onBlur={()=>setOpen(false)} tabIndex={0} className="fixed bg-[#28282c]  rounded-2xl">
+<ul className="p-3 flex flex-col gap-y-3">    
+<li className="hover:cursor-pointer "  >Profile</li>
+<li className="hover:cursor-pointer " >Settings</li>
+<li className="hover:cursor-pointer " onClick={handleLogout}>Log Out</li>    
+    
+</ul>    
+    
+</div>}
+
+</div>
+
+:
+
 <Link href="/Auth/LogIn">  <button onClick={()=>{setOpen(true)}}  
 className=" border text-sm border-gray-400 text-[#ffffff] bg-[#246d3c] rounded-2xl py-1 px-3 font-semibold hover:cursor-pointer" >Log In   </button></Link> 
+}
 
 </div>
 
