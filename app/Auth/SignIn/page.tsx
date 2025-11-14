@@ -38,11 +38,33 @@ const handleSubmit = async () => {
   try {
     loader.start()
 
+    const maxSize = 5 * 1024 * 1024;
+
     if(!profilepic || !coverphoto || !username || !email || !age || !password){
       setmessage("Please fill in all fields");
       loader.done()
       return;
     }
+
+
+    
+        if(profilepic.size > maxSize){
+
+        setmessage("Profile picture can't be larger than 5MB");
+        loader.done()
+        return
+    }
+
+    
+        if(coverphoto.size > maxSize){
+
+        setmessage("Cover picture can't be larger than 5MB");
+        loader.done()
+        return
+
+
+    }
+
 
     const emialres = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/checkemail?email=${email}`)
 
@@ -63,6 +85,9 @@ const handleSubmit = async () => {
       return
 
     }
+
+
+
     const pp = new FormData();
     pp.append("file", profilepic);
     const profilepicResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/uploadphotos`, {
@@ -71,8 +96,9 @@ const handleSubmit = async () => {
     });
 
     const profilepicUrl = await profilepicResponse.json();
+    alert(profilepicUrl.secure_url)
 
-    if(!profilepicUrl){
+    if(!profilepicUrl.secure_url){
       setmessage("Error uploading profile picture")
       loader.done()
       return
@@ -88,7 +114,7 @@ const handleSubmit = async () => {
     });
     const coverphotoUrl = await coverphotoResponse.json();
 
-       if(!coverphotoUrl){
+       if(!coverphotoUrl.secure_url){
       setmessage("Error uploading cover picture")
       loader.done()
       return
@@ -209,7 +235,6 @@ return(
  
 </div>
 
-{message && <div className="text-red-500 font-medium">{message}</div>}
 
 <div className="flex justify-between items-center mt-5">
 <h1><Link href="/Auth/LogIn"> Already a member? LogIn </Link></h1>  
@@ -219,6 +244,7 @@ return(
 
 
 </form>
+{message && <div className="text-red-500 font-medium">{message}</div>}
 </div>
 
 
