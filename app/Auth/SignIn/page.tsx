@@ -96,7 +96,7 @@ const handleSubmit = async () => {
     });
 
     const profilepicUrl = await profilepicResponse.json();
-    alert(profilepicUrl.secure_url)
+
 
     if(!profilepicUrl.secure_url){
       setmessage("Error uploading profile picture")

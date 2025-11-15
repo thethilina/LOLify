@@ -3,7 +3,7 @@ import { LiaUserFriendsSolid } from "react-icons/lia";
 import { PiCrown } from "react-icons/pi";
 import { LuUserRound } from "react-icons/lu";
 import { CiSettings } from "react-icons/ci";
-
+import Link from "next/link";
 
 export default function SideNavBar(){
 

@@ -39,7 +39,11 @@ const handleLogout = async () =>{
 
 try{
 loader.start()
-await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/logout}`)
+await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/auth/logout`, {
+  method: "POST",
+  credentials: "include",
+});
+
 setUser(null);
 router.push("/")
 loader.done()
@@ -89,15 +93,15 @@ return(
 {/* right side buttons */}
 <div className="flex items-center gap-x-8">
 
+{ user && <>
+ <Link href="/post"><button className="flex items-center justify-center gap-x-2  text-gray-300 py-1 px-3  hover:bg-[#1a1a1d]  rounded-xl hover:cursor-pointer">< IoCreateOutline  size={25}/> Create</button></Link>
 
-<button className="flex items-center justify-center gap-x-2  text-gray-300 border-[#515151] py-1 px-4 border-2 rounded-xl hover:cursor-pointer">< IoCreateOutline  size={25}/> Create</button>
-
-<button><IoMdNotificationsOutline size={28}/></button>
-
+<button><IoMdNotificationsOutline size={25}/></button></>
+}
 
 { user?
 <div>
-<Image onClick={()=>{isOpened?setOpen(false):setOpen(true)}}   src={(user as any).avatar} alt="useravatar" width={40} height={40} className=" rounded-full border   border-gray-600 hover:cursor-pointer"    />
+<Image onClick={()=>{isOpened?setOpen(false):setOpen(true)}}   src={(user as any).avatar} alt="useravatar" width={35} height={35} className=" rounded-full border   border-gray-600 hover:cursor-pointer"    />
 {isOpened && <div ref={e=>e?.focus()} onBlur={()=>setOpen(false)} tabIndex={0} className="fixed bg-[#28282c]  rounded-2xl">
 <ul className="p-3 flex flex-col gap-y-3">    
 <li className="hover:cursor-pointer "  >Profile</li>
