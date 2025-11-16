@@ -73,8 +73,8 @@ return(
 <Link href="/">
 {/* Logo */}
 <div className="flex items-center gap-x-4">
-<Image className="w-10" src={Logo} alt="Logo"/>
-<h1 className="text-2xl font-bold text-[#246d3c]  ">LOLify</h1>
+<Image className="w-8" src={Logo} alt="Logo"/>
+<h1 className="text-xl font-bold text-[#246d3c]  ">LOLify</h1>
 </div>
 </Link>
 
