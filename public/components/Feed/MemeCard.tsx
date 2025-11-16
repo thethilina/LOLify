@@ -8,7 +8,7 @@ import { AiOutlineLike } from "react-icons/ai";
 import { UserContext } from "@/public/UserContext";
 import { AiOutlineDislike } from "react-icons/ai";
 import { LiaCommentSolid } from "react-icons/lia";
-
+import Comment from './comment';
 
 function MemeCard({ meme }: { meme: any }){
 
@@ -18,6 +18,7 @@ const [isliked , setisliked] = useState(false);
 const [isdisliked , setisdisliked] = useState(false);
 const [likecount , setlikecount] = useState(0)
 const [dislikecount , setdislikecount] = useState(0)
+const [isopen , setOpen] = useState(false)
 
 {/* like and undo function */}
 
@@ -64,7 +65,6 @@ setlikecount(likecount-1)
 
 
 }
-
 
 {/* dislike and undo function */}
 
@@ -121,6 +121,9 @@ const user = await userres.json()
 setmemeUser(user)
 
 }
+
+
+
 
 useEffect(
 ()=>{
@@ -216,14 +219,16 @@ meme.taglines.map((tag:any)=>{
 
 
 
-<button><LiaCommentSolid size={20} />
+<button onClick={()=>{isopen?setOpen(false):setOpen(true)}}><LiaCommentSolid size={20} />
 </button>    
 </div>
 
 
+{isopen && 
+<Comment meme = {meme} />
+}
 
-
-    </div>
+</div>
   )
 }
 
