@@ -170,7 +170,7 @@ setTimeout(() => {
 return(
 
 
-<div className=" items-center w-full h-full flex-col justify-center flex  mt-30 gap-y-10  text-lg text-[#B9B9CE]     ">
+<div className=" items-center w-full h-full flex-col justify-center flex   gap-y-10  text-lg text-[#B9B9CE]     ">
  
 <h1 className="text-2xl font-semibold text-[#8f96be] ">Welcome to LOLify!</h1>
 

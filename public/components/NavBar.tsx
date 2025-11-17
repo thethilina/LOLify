@@ -102,7 +102,7 @@ return(
 { user?
 <div>
 <Image onClick={()=>{isOpened?setOpen(false):setOpen(true)}}   src={(user as any).avatar} alt="useravatar" width={35} height={35} className=" rounded-full border   border-gray-600 hover:cursor-pointer"    />
-{isOpened && <div ref={e=>e?.focus()} onBlur={()=>setOpen(false)} tabIndex={0} className="fixed bg-[#28282c]  rounded-2xl">
+{isOpened && <div ref={e=>e?.focus()} onBlur={()=>setOpen(false)} tabIndex={0} className="  absolute right-5 top-14 bg-[#28282c]  rounded-2xl">
 <ul className="p-3 flex flex-col gap-y-3">    
 <li className="hover:cursor-pointer "  >Profile</li>
 <li className="hover:cursor-pointer " >Settings</li>

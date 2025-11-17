@@ -35,7 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <SideNavBar   />
 
             {/* Main content */}
-            <main className="flex-1 p-4 mt-15 ">
+            <main className="flex-1  mt-20 m-3 ">
               {children}
             </main>
           </div>

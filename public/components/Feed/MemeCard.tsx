@@ -165,18 +165,21 @@ function MemeCard({ meme }: { meme: any }) {
   }, []);
 
   return (
-    <div className="border border-gray-500 rounded-lg p-5 w-200  bg-[#17171b]  gap-y-3 flex flex-col">
+    <div className="border border-gray-500 rounded-lg p-5 sm:w-200 w-full   bg-[#17171b]  gap-y-3 flex flex-col">
       {/* upper meme section */}
       <div className="flex justify-between items-center px-2 ">
         <div className="flex items-center gap-x-3">
-          <Image
+         {memeuser === null ?
+         <div className="w-8 h-8 bg-gray-500 rounded-full"/>:
+         <Image
             src={memeuser?.avatar}
             alt="useravatar"
             width={30}
             height={30}
-            className="rounded-full border border-gray-500"
-          />
-          <h1>{memeuser?.username}</h1>
+            className="rounded-full border w-8 h-8 object-cover border-gray-500"
+          />}
+        {memeuser === null ?  <div className="w-15 h-2 rounded-lg bg-gray-500"/>:
+          <h1>{memeuser?.username}</h1>}
         </div>
         <div className="flex gap-x-2 items-center">
           <h1 className="text-sm">

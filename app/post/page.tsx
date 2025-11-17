@@ -132,7 +132,7 @@ const handlepost = async()=>{
 
 return(
 
-<div className=" items-start h-full flex flex-col  justify-center   mx-50 my-30 gap-y-10  text-lg text-[#B9B9CE] ">
+<div className=" items-center h-full flex flex-col  justify-center    gap-y-10  text-lg text-[#B9B9CE] ">
 <h1 className="text-2xl font-semibold">Post Memes</h1>
 
 
@@ -173,7 +173,7 @@ return(
 <button onClick={handlepost} className="font-medium bg-[#4b4679]    px-7 hover:cursor-pointer hover:bg-[#6d62cf] py-1 rounded-xl ">Post</button>
 {message && <div className="text-red-500 font-medium">{message}</div>}
 
-{isOpen && <div onClick={() => setOpen(false)}   className="absolute w-screen h-screen flex items-center  ">
+{isOpen && <div onClick={() => setOpen(false)}   className="absolute w-screen h-screen flex items-center justify-center  ">
     
 <div className="flex flex-col  items-center justify-center rounded-xl border border-gray-400  bg-[#0F0F11] w-70 p-5 b gap-y-5 h-50">
 

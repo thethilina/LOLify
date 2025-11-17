@@ -3,12 +3,16 @@ import { useEffect, useState } from 'react'
 import { useContext } from 'react';
 import { UserContext } from "@/public/UserContext";
 import Commentcard from './Commentcard';
+import loading from "../../Images/loading2.gif"
+import Image from 'next/image';
 
 function Comment({ meme }: { meme: any }) {
 
 const { user } = useContext(UserContext);
 const [comments , setComments] = useState<any>([])
 const [commenttext , setcommenttext] = useState("")
+const [isLoading , setLoading] = useState(false)
+
 
 const deletecomment = async (comment:any)=>{
 
@@ -84,7 +88,7 @@ console.log(e.message)
 {/* fetch comments */}
 
 const fetchcomments = async()=>{
-
+setLoading(true)
     try{
 
     const commentres = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/comments?memeId=${meme._id}`,{credentials: "include",})
@@ -94,6 +98,8 @@ const fetchcomments = async()=>{
 
     }catch(e:any){
         console.log(e.message)
+    }finally{
+      setLoading(false)
     }
 
 }
@@ -105,9 +111,11 @@ useEffect(()=>{
 },[])
 
   return (
-    <div className='flex gap-y-5 flex-col  w-200 '>
-    
-     {/** add comment */}
+    <div className='flex gap-y-5 flex-col mb-10  px-5  sm:w-200 w-full '>
+         
+  {isLoading ? <div className="flex flex-col gap-y-4 justify-center text-green-800 items-center"><Image src={loading} alt="loading" width={170} height={170} /><h1 className="text-xl font-semibold">Loading</h1></div>:
+
+    <div> {/** add comment */}
     <div className='flex flex-col gap-y-2 '>
     <input type='text' placeholder='Whats on your mind.' value={commenttext} onChange={(e)=>{setcommenttext(e.target.value)}}  className='rounded-xl  py-2 px-4 bg-[#333333] focus:border-[#878b87] focus:outline-none'/>
     <div className='flex gap-x-4 items-end mx-1 justify-end'>
@@ -116,6 +124,7 @@ useEffect(()=>{
     </div>
     </div>
 
+    <div className='flex flex-col gap-y-5'>
     {Array.isArray(comments) && comments.length > 0 ? (
      [...comments].reverse().map((comment: any ,index:number) => (
         <Commentcard comment={comment} onDelete={deletecomment}  key={comment._id} />
@@ -124,8 +133,9 @@ useEffect(()=>{
     (
     <div className='mx-2'>No comments to show.</div>
     )}
-
-   
+    </div>
+</div>
+  }
 
 
     </div>

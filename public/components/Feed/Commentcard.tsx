@@ -36,21 +36,21 @@ getuser()
 
 
   return (
-    <div className="flex flex-col py-4 px-5 gap-y-3 rounded-2xl bg-[#1f1e22] ">
+    <div className="flex flex-col py-2  gap-y-1  ">
 
     <div className="flex items-center justify-between text-gray-400">    
     <div className="flex items-center gap-x-3">
-        <Image  src={commenteduser?.avatar} alt="avatar" width={35} height={35} className="rounded-full" />
-        <h1 className="">{commenteduser?.username}</h1>
+      {commenteduser === null ? <div className="w-8 h-8 rounded-full bg-gray-500"></div> :  <Image  src={commenteduser?.avatar} alt="avatar" width={30} height={35} className="rounded-full w-8 h-8 object-cover" />}
+      {commenteduser === null ?<div className="w-20 h-2 rounded-lg bg-gray-500"></div>:  <h1 className="">{commenteduser?.username}</h1>}
     </div>
         <div className="flex gap-x-2 items-center">
-       { commenteduser?._id === (user as any)._id  && <MdDeleteOutline onClick={()=>{onDelete(comment)}} size={23} className="hover:bg-gray-700 hover:cursor-pointer rounded-full p-1" />  }  
-        <h1 className="text-sm">{new Date(comment.createdAt).toLocaleDateString()}  </h1>
+       { commenteduser?._id === (user as any)?._id  && <MdDeleteOutline onClick={()=>{onDelete(comment)}} size={23} className="hover:bg-gray-700 hover:cursor-pointer rounded-full p-1" />  }  
+       {commenteduser &&     <h1 className="text-sm">{new Date(comment.createdAt).toLocaleDateString()}  </h1>}
         </div>    
   
     </div>
-    <div className="mx-12 text-gray-300">    
-        <h1>{comment.body}</h1>
+    <div className="mx-10 text-gray-300">    
+     {commenteduser === null ? <div className="w-30 h-2 rounded-lg bg-gray-500"> </div> :   <h1>{comment.body}</h1>}
     </div>    
     </div>
   )
