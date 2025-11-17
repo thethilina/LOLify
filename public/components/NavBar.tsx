@@ -68,8 +68,8 @@ return(
 
 
 
-<div>
-<nav className="top-0 z-50 fixed w-full flex justify-between px-10 py-3 items-center border-b border-gray-500 bg-[#0F0F11]">
+
+<nav className="top-0 z-50  sticky  w-full flex justify-between px-10 py-3 items-center border-b border-gray-500 bg-[#0F0F11]">
 <Link href="/">
 {/* Logo */}
 <div className="flex items-center gap-x-4">
@@ -128,7 +128,7 @@ className=" border text-sm border-gray-400 text-[#ffffff] bg-[#246d3c] rounded-2
 
 
 
-</div>
+
 
 )
 

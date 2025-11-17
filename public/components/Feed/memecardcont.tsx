@@ -34,7 +34,7 @@ fetchmeme()
   return (
 
 
-    <div className="flex flex-col w-full items-center  gap-y-5">
+    <div className="flex flex-col w-full items-center   gap-y-5">
 
      { memes.map((meme:any)=>{
         return(
