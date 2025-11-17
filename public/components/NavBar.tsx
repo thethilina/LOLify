@@ -69,11 +69,11 @@ return(
 
 
 
-<nav className="top-0 z-50  sticky  w-full flex justify-between px-10 py-3 items-center border-b border-gray-500 bg-[#0F0F11]">
+<nav className="top-0 z-50  fixed  w-full  flex  justify-between  px-10 py-3 items-center border-b border-gray-500 bg-[#0F0F11]">
 <Link href="/">
 {/* Logo */}
 <div className="flex items-center gap-x-4">
-<Image className="w-8" src={Logo} alt="Logo"/>
+<Image className=" sm:block hidden w-8" src={Logo} alt="Logo"/>
 <h1 className="text-xl font-bold text-[#246d3c]  ">LOLify</h1>
 </div>
 </Link>
@@ -83,18 +83,18 @@ return(
 
 
 
-<form className="flex items-center ml-50 ">
-<input className = "bg-[#2b2b2b] w-100   py-2 pl-10 px-2  rounded-l-full  focus:border-[#878b87] focus:outline-none"  type="text" placeholder="Search Lolify" />
+<form className="flex items-center ">
+<input className = "bg-[#2b2b2b] sm:w-100  sm:50  py-2 pl-10 px-2  rounded-l-full  focus:border-[#878b87] focus:outline-none"  type="text" placeholder="Search Lolify" />
 <button className="bg-[#3b3b3b]   py-2.5 px-2 rounded-r-full hover:cursor-pointer"><  IoIosSearch  size={20 }/></button>
 </form>
 
 
 
 {/* right side buttons */}
-<div className="flex items-center gap-x-8">
+<div className="flex items-center gap-x-4   sm:gap-x-8">
 
 { user && <>
- <Link href="/post"><button className="flex items-center justify-center gap-x-2  text-gray-300 py-1 px-3  hover:bg-[#1a1a1d]  rounded-xl hover:cursor-pointer">< IoCreateOutline  size={25}/> Create</button></Link>
+ <Link href="/post"><button className="flex items-center justify-center gap-x-2  text-gray-300 sm:py-1 sm:px-3  hover:bg-[#1a1a1d]  rounded-xl hover:cursor-pointer">< IoCreateOutline  size={25}/> <h1 className="sm:block hidden">Create</h1></button></Link>
 
 <button><IoMdNotificationsOutline size={25}/></button></>
 }

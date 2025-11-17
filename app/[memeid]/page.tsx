@@ -40,7 +40,7 @@ function page({ params }:any) {
 
 
   return (
-    <div className='flex flex-col my-10 gap-y-5 items-center justify-center'>
+    <div className='flex flex-col  gap-y-5 items-center justify-center'>
     {meme&&<MemeCard meme = {meme} />}
     {meme && <Comment meme = {meme} />}
     </div>
