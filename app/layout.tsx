@@ -3,9 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavBar from "../public/components/NavBar";
 import SideNavBar from "../public/components/SideNavBar";
-import NextTopLoader from 'nextjs-toploader';
-import {UserProvider} from "@/public/UserContext";
-
+import NextTopLoader from "nextjs-toploader";
+import { UserProvider } from "@/public/UserContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,15 +28,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-     <UserProvider>     <NavBar/>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >       <SideNavBar/>
-              <NextTopLoader color="#246d3c" showSpinner={false} />
-
-       
-   <div className="ml-70 mt-20 ">          {children} </div>
-      </body></UserProvider>
+      >
+        <UserProvider>
+          <NavBar />
+          <SideNavBar />
+          <NextTopLoader color="#246d3c" showSpinner={false} />
+          <div className="ml-70 mt-20">{children}</div>
+        </UserProvider>
+      </body>
     </html>
   );
 }
