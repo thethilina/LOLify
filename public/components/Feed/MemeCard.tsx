@@ -294,7 +294,7 @@ useEffect(() => {
           {dotbar && <div  ref={menuRef} className=" text-gray-3  text-sm 00 absolute w-30 flex items-center justify-center  bg-gray-950 p-1 mt-15 ml-1 rounded-xl border border-gray-800">
            { (user as any)?._id === memeuser?._id ?
              <h1 onClick={deletememe} className="hover:cursor-pointer">Delete</h1>:
-             <h1 className="hover:cursor-pointer">Report Meme</h1>
+            <Link href={"/Report"}> <h1 className="hover:cursor-pointer">Report Meme</h1></Link>
            } 
           </div>
           }
