@@ -6,8 +6,11 @@ import Image from "next/image"
 
 export default function Memecardcont() {
 
-const [memes , setMemes] = useState([])
+const [memes , setMemes] = useState<any>([])
 const [isLoading , setLoading] = useState(false)
+
+
+
 
 const fetchmeme = async() =>{
 
@@ -37,6 +40,17 @@ fetchmeme()
 }, []
 
 )
+
+const removeMeme = (meme:any)=>{
+
+setMemes((prev: any) => {
+  const prevArray = Array.isArray(prev) ? prev : [];
+  return prevArray.filter((c: any) => c._id !== meme._id);
+});
+
+
+}
+
   return (
 
 
@@ -48,7 +62,7 @@ fetchmeme()
      { memes.map((meme:any)=>{
         return(
             
-       <MemeCard meme = {meme} />
+       <MemeCard meme = {meme} isOpen={false} removememe={removeMeme}/>
           
         )
      })

@@ -83,7 +83,7 @@ return(
 
 
 
-<form className="flex items-center ">
+<form className="sm:flex items-center hidden ">
 <input className = "bg-[#2b2b2b] sm:w-100  sm:50  py-2 pl-10 px-2  rounded-l-full  focus:border-[#878b87] focus:outline-none"  type="text" placeholder="Search Lolify" />
 <button className="bg-[#3b3b3b]   py-2.5 px-2 rounded-r-full hover:cursor-pointer"><  IoIosSearch  size={20 }/></button>
 </form>

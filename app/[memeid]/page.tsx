@@ -21,6 +21,11 @@ function page({ params }:any) {
 
   )
 
+const removeMeme = (meme:any)=>{
+
+setMeme(null)
+
+}
 
   const getmeme = async ()=>{
 
@@ -48,8 +53,7 @@ function page({ params }:any) {
     <div className='flex flex-col  gap-y-5 items-center justify-center'>
         {isLoading && <div className="flex flex-col gap-y-4 justify-center text-green-800 items-center"><Image src={loading} alt="loading" width={170} height={170} /><h1 className="text-xl font-semibold">Loading</h1></div>}
   
-    {meme&&<MemeCard meme = {meme} />}
-    {meme && <Comment meme = {meme} />}
+    {meme&&<MemeCard meme = {meme} isOpen = {true} removememe={removeMeme} />}
     </div>
   )
 }

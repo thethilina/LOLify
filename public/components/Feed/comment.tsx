@@ -6,29 +6,33 @@ import Commentcard from './Commentcard';
 import loading from "../../Images/loading2.gif"
 import Image from 'next/image';
 
-function Comment({ meme }: { meme: any }) {
+function Comment({ meme , setcomment }: { meme: any , setcomment:(e:number)=>void  }) {
 
 const { user } = useContext(UserContext);
 const [comments , setComments] = useState<any>([])
 const [commenttext , setcommenttext] = useState("")
 const [isLoading , setLoading] = useState(false)
-
+const [isposting , setPosting] = useState(false)
 
 const deletecomment = async (comment:any)=>{
 
 try{
+
+  
+setcomment(-1)
+
+
+setComments((prev: any) => {
+  const prevArray = Array.isArray(prev) ? prev : [];
+  return prevArray.filter((c: any) => c._id !== comment._id);
+});
 
 await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/comments/protected?commentId=${comment._id}`,
     {method : "DELETE",
     credentials: "include",
     }
     
-)    
-
-setComments((prev: any) => {
-  const prevArray = Array.isArray(prev) ? prev : [];
-  return prevArray.filter((c: any) => c._id !== comment._id);
-});
+)  
 
 
 
@@ -45,11 +49,20 @@ console.log(e.message)
 
 const postcomment = async()=>{
 
+setPosting(true)
+
 try{
+
+
+
 
 if(commenttext === ""){
     return
 }
+
+setcomment(1)
+
+
 
 const comment = {
     "body" : commenttext,
@@ -78,6 +91,10 @@ setcommenttext("")
 }catch(e:any){
 
 console.log(e.message)
+
+}finally{
+
+  setPosting(false)
 
 }
 
@@ -120,7 +137,10 @@ useEffect(()=>{
     <input type='text' placeholder='Whats on your mind.' value={commenttext} onChange={(e)=>{setcommenttext(e.target.value)}}  className='rounded-xl  py-2 px-4 bg-[#333333] focus:border-[#878b87] focus:outline-none'/>
     <div className='flex gap-x-4 items-end mx-1 justify-end'>
     <button onClick={()=>{setcommenttext("")}} className='bg-[#2d4738] py-1 px-3 rounded-lg'>Cancel</button>
-    <button onClick={postcomment} className='bg-[#2d4738] py-1 px-3 rounded-lg'>Post</button>    
+   
+    { isposting?
+     <button  className='bg-[#3c4942] py-1 px-3 rounded-lg'>Post</button> :   
+      <button onClick={postcomment} className='bg-[#2d4738] py-1 px-3 rounded-lg hover:cursor-pointer hover:bg-[#3c4942]'>Post</button>    } 
     </div>
     </div>
 
