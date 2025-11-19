@@ -108,7 +108,7 @@ export default function NavBar() {
 
 
       <form onSubmit={(e)=>{handlesearch(e)}} className="flex items-center  ">
-        <input onChange={(e)=>{setsearchtext(e.target.value.trim())}} className="bg-[#2b2b2b] sm:w-100 w-30  py-1  px-2   sm:py-2 sm:pl-10 sm:px-2  rounded-l-full  focus:border-[#878b87] focus:outline-none" type="text" placeholder="Search Lolify" />
+        <input onChange={(e)=>{setsearchtext(e.target.value.trim())}} className="bg-[#2b2b2b] sm:w-100 w-full py-1  px-2   sm:py-2 sm:pl-10 sm:px-2  rounded-l-full  focus:border-[#878b87] focus:outline-none" type="text" placeholder="Search Lolify" />
         <button className="bg-[#3b3b3b] py-1.5   sm:py-2.5 px-2 rounded-r-full hover:cursor-pointer"><  IoIosSearch size={20} /></button>
       </form>
 
