@@ -52,8 +52,7 @@ function MemeCard({
     setlikecount(likecount + 1);
 
     const likeres = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/memes/protected/likememe?userId=${
-        (user as any)?._id
+      `${process.env.NEXT_PUBLIC_BASE_URL}/memes/protected/likememe?userId=${(user as any)?._id
       }&memeId=${meme._id}`,
       {
         method: "POST",
@@ -75,10 +74,8 @@ function MemeCard({
     setisliked(false);
     setlikecount(likecount - 1);
     const likeres = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_BASE_URL
-      }/memes/protected/likememe/undo?userId=${(user as any)?._id}&memeId=${
-        meme._id
+      `${process.env.NEXT_PUBLIC_BASE_URL
+      }/memes/protected/likememe/undo?userId=${(user as any)?._id}&memeId=${meme._id
       }`,
       { method: "POST", credentials: "include" }
     );
@@ -107,8 +104,7 @@ function MemeCard({
     setdislikecount(dislikecount + 1);
 
     const likeres = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/memes/protected/dislikememe?userId=${
-        (user as any)?._id
+      `${process.env.NEXT_PUBLIC_BASE_URL}/memes/protected/dislikememe?userId=${(user as any)?._id
       }&memeId=${meme._id}`,
       {
         method: "PATCH",
@@ -129,10 +125,8 @@ function MemeCard({
     setisdisliked(false);
     setdislikecount(dislikecount - 1);
     const likeres = await fetch(
-      `${
-        process.env.NEXT_PUBLIC_BASE_URL
-      }/memes/protected/dislikememe/undo?userId=${(user as any)?._id}&memeId=${
-        meme._id
+      `${process.env.NEXT_PUBLIC_BASE_URL
+      }/memes/protected/dislikememe/undo?userId=${(user as any)?._id}&memeId=${meme._id
       }`,
       { method: "PATCH", credentials: "include" }
     );
