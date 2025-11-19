@@ -12,12 +12,15 @@ import Comment from "./comment";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-
-function MemeCard({ meme, isOpen, removememe }: { meme: any, isOpen: boolean, removememe: any }) {
-
-
-
-
+function MemeCard({
+  meme,
+  isOpen,
+  removememe,
+}: {
+  meme: any;
+  isOpen: boolean;
+  removememe: any;
+}) {
   const { user, setUser } = useContext(UserContext);
   const [memeuser, setmemeUser] = useState<any>(null);
   const [isliked, setisliked] = useState(false);
@@ -26,7 +29,7 @@ function MemeCard({ meme, isOpen, removememe }: { meme: any, isOpen: boolean, re
   const [dislikecount, setdislikecount] = useState(0);
   const [commentcount, setcommentcount] = useState(0);
   const [comments, setComments] = useState<any>([]);
-  const [dotbar, setdotbar] = useState(false)
+  const [dotbar, setdotbar] = useState(false);
   const router = useRouter();
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -35,26 +38,18 @@ function MemeCard({ meme, isOpen, removememe }: { meme: any, isOpen: boolean, re
   }
 
   const setcommentCount = (e: number) => {
-
-    setcommentcount(commentcount + e)
-
-  }
-
+    setcommentcount(commentcount + e);
+  };
 
   const like = async () => {
-
-
-
-
     if (!user) {
-      router.push("/Auth/LogIn")
-      return
+      router.push("/Auth/LogIn");
+      return;
     }
 
-    undislike()
+    undislike();
     setisliked(true);
     setlikecount(likecount + 1);
-
 
     const likeres = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/memes/protected/likememe?userId=${(user as any)?._id
@@ -67,11 +62,9 @@ function MemeCard({ meme, isOpen, removememe }: { meme: any, isOpen: boolean, re
     );
 
     if (!likeres.ok) {
-      console.log("error liking meme")
+      console.log("error liking meme");
       return;
     }
-
-
   };
   const unlike = async () => {
     if (!isliked) {
@@ -90,7 +83,6 @@ function MemeCard({ meme, isOpen, removememe }: { meme: any, isOpen: boolean, re
       alert("Error");
       return;
     }
-
   };
 
   {
@@ -98,24 +90,18 @@ function MemeCard({ meme, isOpen, removememe }: { meme: any, isOpen: boolean, re
   }
 
   const dislike = async () => {
-
-
-
-
-
     if (isdisliked) {
-      return
+      return;
     }
 
     if (!user) {
-      router.push("Auth/LogIn")
-      return
+      router.push("Auth/LogIn");
+      return;
     }
 
-    unlike()
+    unlike();
     setisdisliked(true);
     setdislikecount(dislikecount + 1);
-
 
     const likeres = await fetch(
       `${process.env.NEXT_PUBLIC_BASE_URL}/memes/protected/dislikememe?userId=${(user as any)?._id
@@ -128,11 +114,9 @@ function MemeCard({ meme, isOpen, removememe }: { meme: any, isOpen: boolean, re
     );
 
     if (!likeres.ok) {
-      console.log("error dislining meme")
+      console.log("error dislining meme");
       return;
     }
-
-
   };
   const undislike = async () => {
     if (!isdisliked) {
@@ -150,7 +134,6 @@ function MemeCard({ meme, isOpen, removememe }: { meme: any, isOpen: boolean, re
       alert("Error");
       return;
     }
-
   };
 
   {
@@ -167,48 +150,27 @@ function MemeCard({ meme, isOpen, removememe }: { meme: any, isOpen: boolean, re
   };
 
   const deletememe = async () => {
-
     try {
-
       if (!user) {
-        router.push("/Auth/LogIn")
-        return
+        router.push("/Auth/LogIn");
+        return;
       }
 
       if (isOpen) {
-
-        router.push("/")
-
+        router.push("/");
       }
-      removememe(meme)
+      removememe(meme);
 
-      const deletememeres = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/memes/protected?memeId=${meme._id}`,
+      const deletememeres = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/memes/protected?memeId=${meme._id}`,
         { method: "DELETE", credentials: "include" }
-      )
+      );
 
-      console.log(await deletememeres.json())
-
-
-
+      console.log(await deletememeres.json());
     } catch (e: any) {
-      console.log(e.message)
+      console.log(e.message);
     }
-
-
-
-
-
-
-
-
-  }
-
-
-
-
-
-
-
+  };
 
   const fetchcomments = async () => {
     try {
@@ -224,13 +186,10 @@ function MemeCard({ meme, isOpen, removememe }: { meme: any, isOpen: boolean, re
     }
   };
 
-
-
   useEffect(() => {
     getuser();
     fetchcomments();
   }, []);
-
 
   useEffect(() => {
     if (!user) return;
@@ -256,11 +215,7 @@ function MemeCard({ meme, isOpen, removememe }: { meme: any, isOpen: boolean, re
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-
   }, []);
-
-
-
 
   return (
     <div className="sm:w-200 w-full ">
@@ -268,31 +223,51 @@ function MemeCard({ meme, isOpen, removememe }: { meme: any, isOpen: boolean, re
         {/* upper meme section */}
         <div className="flex justify-between items-center px-2 ">
           <div className="flex items-center gap-x-3">
-            {memeuser === null ?
-              <div className="w-8 h-8 bg-gray-500 rounded-full" /> :
+            {memeuser === null ? (
+              <div className="w-8 h-8 bg-gray-500 rounded-full" />
+            ) : (
               <Image
                 src={memeuser?.avatar}
                 alt="useravatar"
                 width={30}
                 height={30}
                 className="rounded-full border w-8 h-8 object-cover border-gray-500"
-              />}
-            {memeuser === null ? <div className="w-15 h-2 rounded-lg bg-gray-500" /> :
-              <h1>{memeuser?.username}</h1>}
+              />
+            )}
+            {memeuser === null ? (
+              <div className="w-15 h-2 rounded-lg bg-gray-500" />
+            ) : (
+              <h1>{memeuser?.username}</h1>
+            )}
           </div>
           <div className="flex gap-x-2 items-center">
             <h1 className="text-sm">
               {new Date(meme.createdAt).toLocaleDateString()}
             </h1>
-            <HiDotsVertical onClick={() => { setdotbar(true) }} size={22} className="hover:bg-gray-800  hover:cursor-pointer rounded-full p-1" />
-            {dotbar && <div ref={menuRef} className=" text-gray-3  text-sm 00 absolute w-30 flex items-center justify-center  bg-gray-950 p-1 mt-15 ml-1 rounded-xl border border-gray-800">
-              {(user as any)?._id === memeuser?._id ?
-                <h1 onClick={deletememe} className="hover:cursor-pointer">Delete</h1> :
-                <Link href={"/Report"}> <h1 className="hover:cursor-pointer">Report Meme</h1></Link>
-              }
-            </div>
-            }
-
+            <HiDotsVertical
+              onClick={() => {
+                setdotbar(true);
+              }}
+              size={22}
+              className="hover:bg-gray-800  hover:cursor-pointer rounded-full p-1"
+            />
+            {dotbar && (
+              <div
+                ref={menuRef}
+                className=" text-gray-3  text-sm 00 absolute w-30 flex items-center justify-center  bg-gray-950 p-1 mt-15 ml-1 rounded-xl border border-gray-800"
+              >
+                {(user as any)?._id === memeuser?._id ? (
+                  <h1 onClick={deletememe} className="hover:cursor-pointer">
+                    Delete
+                  </h1>
+                ) : (
+                  <Link href={"/Report"}>
+                    {" "}
+                    <h1 className="hover:cursor-pointer">Report Meme</h1>
+                  </Link>
+                )}
+              </div>
+            )}
           </div>
         </div>
 
@@ -344,7 +319,10 @@ function MemeCard({ meme, isOpen, removememe }: { meme: any, isOpen: boolean, re
           {/* dislike button */}
 
           {isdisliked ? (
-            <button onClick={undislike} className=" flex  items-center gap-x-1 ">
+            <button
+              onClick={undislike}
+              className=" flex  items-center gap-x-1 "
+            >
               <AiOutlineDislike
                 className="bg-[#2e2e35] rounded-full p-2 hover:bg-[#464652] hover:cursor-pointer"
                 size={35}
@@ -362,19 +340,22 @@ function MemeCard({ meme, isOpen, removememe }: { meme: any, isOpen: boolean, re
           )}
 
           <button className="">
-            {!isOpen ?
-              <Link href={`/Meme/${meme._id}`} className=" flex  items-center gap-x-1 hover:cursor-pointer ">
+            {!isOpen ? (
+              <Link
+                href={`/${meme._id}`}
+                className=" flex  items-center gap-x-1 hover:cursor-pointer "
+              >
                 <LiaCommentSolid size={20} />
                 {commentcount !== 0 && <h1>{commentcount}</h1>}
-              </Link> :
+              </Link>
+            ) : (
               <button className=" flex  items-center gap-x-1 ">
                 <LiaCommentSolid size={20} />
                 {commentcount !== 0 && <h1>{commentcount}</h1>}
               </button>
-            }
+            )}
           </button>
         </div>
-
       </div>
       <div className="mt-5">
         {isOpen && <Comment meme={meme} setcomment={setcommentCount} />}
