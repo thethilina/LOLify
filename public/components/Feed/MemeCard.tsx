@@ -363,7 +363,7 @@ function MemeCard({ meme, isOpen, removememe }: { meme: any, isOpen: boolean, re
 
           <button className="">
             {!isOpen ?
-              <Link href={`/${meme._id}`} className=" flex  items-center gap-x-1 hover:cursor-pointer ">
+              <Link href={`/Meme/${meme._id}`} className=" flex  items-center gap-x-1 hover:cursor-pointer ">
                 <LiaCommentSolid size={20} />
                 {commentcount !== 0 && <h1>{commentcount}</h1>}
               </Link> :
