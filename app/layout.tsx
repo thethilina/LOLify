@@ -4,7 +4,7 @@ import "./globals.css";
 import NavBar from "../public/components/NavBar";
 import SideNavBar from "../public/components/SideNavBar";
 import NextTopLoader from 'nextjs-toploader';
-import {UserProvider} from "@/public/UserContext";
+import { UserProvider } from "@/public/UserContext";
 
 
 const geistSans = Geist({
@@ -27,12 +27,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <UserProvider>
         <NextTopLoader color="#246d3c" showSpinner={false} />
-        <NavBar />
+
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        
+          <NavBar />
           <div className="flex   ">
             {/* Sidebar */}
-                  <SideNavBar   />
+            <SideNavBar />
 
             {/* Main content */}
             <main className="flex-1  mt-20 m-3 ">
