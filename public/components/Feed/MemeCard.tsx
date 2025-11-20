@@ -276,7 +276,7 @@ function MemeCard({
         <div className="flex gap-x-3 px-2 text-blue-200">
           {meme.taglines !== 0 &&
             meme.taglines.map((tag: any) => {
-              return <h1 className="">#{tag}</h1>;
+              return <Link href={`/Meme/Search/${tag}`}  className="hover:cursor-pointer"  ><h1 className="">#{tag}</h1></Link>;
             })}
         </div>
 
@@ -342,7 +342,7 @@ function MemeCard({
           <button className="">
             {!isOpen ? (
               <Link
-                href={`/${meme._id}`}
+                href={`/Meme/${meme._id}`}
                 className=" flex  items-center gap-x-1 hover:cursor-pointer "
               >
                 <LiaCommentSolid size={20} />
