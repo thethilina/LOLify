@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <NextTopLoader color="#246d3c" showSpinner={false} />
 
        
-   <div className="ml-70 mt-20 ">          {children} </div>
+   <div className="sm:ml-70 mt-20 p-3">          {children} </div>
       </body></UserProvider>
     </html>
   );
