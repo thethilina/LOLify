@@ -384,3 +384,7 @@ function MemeCard({ meme, isOpen, removememe }: { meme: any, isOpen: boolean, re
 }
 
 export default MemeCard;
+
+
+
+
