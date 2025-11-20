@@ -3,9 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavBar from "../public/components/NavBar";
 import SideNavBar from "../public/components/SideNavBar";
-import NextTopLoader from 'nextjs-toploader';
+import NextTopLoader from "nextjs-toploader";
 import { UserProvider } from "@/public/UserContext";
-
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,22 +24,15 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <UserProvider>
-        <NextTopLoader color="#246d3c" showSpinner={false} />
+     <UserProvider>     <NavBar/>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >       <SideNavBar/>
+              <NextTopLoader color="#246d3c" showSpinner={false} />
 
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-          <NavBar />
-          <div className="flex   ">
-            {/* Sidebar */}
-            <SideNavBar />
-
-            {/* Main content */}
-            <main className="flex-1  mt-20 m-3 ">
-              {children}
-            </main>
-          </div>
-        </body>
-      </UserProvider>
+       
+   <div className="ml-70 mt-20 ">          {children} </div>
+      </body></UserProvider>
     </html>
   );
 }
