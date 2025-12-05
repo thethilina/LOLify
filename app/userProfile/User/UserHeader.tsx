@@ -5,9 +5,11 @@ import { useEffect, useState } from "react";
 
 interface UserHeaderProps {
   onLoadMemes: () => void;
+  //onLoadBattleHistory : () => void;
+  
 }
 
-export default function UserHeader({ onLoadMemes }: UserHeaderProps) {
+export default function UserHeader({ onLoadMemes}: UserHeaderProps) {
   const params = useParams();
   const userId = params.userid;
 
@@ -63,11 +65,15 @@ export default function UserHeader({ onLoadMemes }: UserHeaderProps) {
           >
             Meme
           </button>
-          <button className="px-4 py-2 bg-gray-800 text-white rounded-lg">
+          <button className="px-4 py-2 bg-gray-800 text-white rounded-lg"
+            //onClick={onLoadBattleHistory}
+          >
             Battle History
           </button>
-          <button className="px-4 py-2 bg-gray-800 text-white rounded-lg">
-            Challenge
+          <button className="px-4 py-2 bg-gray-800 text-white rounded-lg"
+          
+          >
+            Settings
           </button>
         </div>
       </div>

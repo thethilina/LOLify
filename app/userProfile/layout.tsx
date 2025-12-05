@@ -10,10 +10,11 @@ export default function UserProfileLayout({
 }: {
   children: React.ReactNode;
 }) {
+  
   return (
     <div className="min-h-screen bg-[#121212] text-white">
-      {/* Header common to all user profile pages */}
-      <UserHeader />
+      
+      <UserHeader onLoadMemes={()=>{}} onLoadBattleHistory={()=>{}} />
 
       {/* Main content */}
       <main className="px-6 mt-6">{children}</main>
