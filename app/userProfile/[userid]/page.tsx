@@ -1,87 +1,145 @@
 "use client";
 
-import UserHeader from "@/app/userProfile/User/UserHeader";
-import MemeCard from "@/public/components/Feed/MemeCard";
+import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import BattleHistory from "../User/BattleHistory";
+import UserHeader from "@/public/components/UserProfile/UserHeader";
+import MemeCard from "@/public/components/Feed/MemeCard";
+import BattleHistory from "@/public/components/UserProfile/BattleHistory";
+import { status } from "nprogress";
 
-export default function Page() {
-  const [usermeme, setuserMeme] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
+interface FormattedBattle {
+  username: string;
+  avatar: string;
+  endTime: string;
+  status: string;
+}
 
+function Page() {
+  const { userid } = useParams();
 
- 
+  const [activeTab, setActiveTab] = useState<"memes" | "battles" | "challenge">("memes");
 
+  const [memes, setMemes] = useState<any[]>([]);
+  const [memesLoading, setMemesLoading] = useState(false);
 
+  const [battles, setBattles] = useState<FormattedBattle[]>([]);
+  const [battlesLoading, setBattlesLoading] = useState(false);
 
-  //setuser params
-  const params = useParams();
-  const userId = params.userid;
-
+  // Fetch memes
   const fetchMemes = async () => {
-    if (!userId) return;
-    setLoading(true);
+    if (!userid) return;
+    setMemesLoading(true);
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/memes/memebyuserid?userid=${userid}`
+      );
+      const data = await res.json();
+      setMemes(data);
+    } catch (err) {
+      console.error("Error fetching memes:", err);
+    } finally {
+      setMemesLoading(false);
+    }
+  };
+
+  // Remove a meme from state
+  const removeMeme = (deletedMeme: any) => {
+    setMemes(memes.filter((m) => m._id !== deletedMeme._id));
+  };
+
+  // Fetch battle history and map to FormattedBattle
+  const fetchBattleHistory = async () => {
+    if (!userid) return;
+    setBattlesLoading(true);
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/memes/memebyuserid?userid=${userId}`
+        `${process.env.NEXT_PUBLIC_BASE_URL}/battle/User?userId=${userid}`
       );
-      const memes = await res.json();
-      console.log("Fetched memes:", memes); 
-      setuserMeme(memes);
+      const data = await res.json();
+
+      const formatted: FormattedBattle[] = (data.battles || []).map((battle: any) => {
+        const isUserBy = battle.user_id_by._id === userid;
+        const opponent = isUserBy ? battle.user_id_to : battle.user_id_by;
+
+        let result = "Draw";
+        if (battle.status === "isCompleted") {
+          if (battle.winner?._id === userid) result = "Win";
+          else if (battle.winner?._id !== userid) result = "Lose";
+        }
+
+        return {
+          username: opponent.username,
+          avatar: opponent.avatar || "/default-avatar.png",
+          endTime: battle.endTime,
+          status:result,
+        };
+      });
+
+      setBattles(formatted);
     } catch (err) {
-      console.error(err);
+      console.error("Error fetching battle history:", err);
+      setBattles([]);
     } finally {
-      setLoading(false);
+      setBattlesLoading(false);
     }
   };
-  // //fetchBattle history
-const fetchBattleHistory  = async () => {
-  if(!userId) return;
-  setLoading(true);
 
-  try {
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/memes/memebyuserid?userid=${userId}`
-    );
-  } catch (error) {
-    
-  }
-}
-  // <BattleHistory />
-
-  // Auto-load memes when page refreshes
+  // Auto-load memes on page mount
   useEffect(() => {
     fetchMemes();
-  }, [userId]);
-
-  // Remove meme after deletion
-  const removeMeme = (deletedMeme: any) => {
-    setuserMeme(usermeme.filter((m) => m._id !== deletedMeme._id));
-  };
+  }, [userid]);
 
   return (
-    <div>
-     
+    <div className="flex flex-col gap-6">
+      {/* User Header */}
+      <UserHeader
+        activeTab={activeTab}
+        onSetActiveTab={(tab) => {
+          setActiveTab(tab);
+          if (tab === "memes") fetchMemes();
+          if (tab === "battles") fetchBattleHistory();
+        }}
+      />
 
-      <div className="px-6 mt-6 flex flex-col gap-4">
-        {loading && <p className="text-white animate-pulse">Loading memes...</p>}
-
-        {!loading && usermeme.length === 0 && (
-          <p className="text-gray-400">No memes found</p>
+      <div className="px-6 flex flex-col gap-8">
+        {/* Meme Section */}
+        {activeTab === "memes" && (
+          <section>
+            {memesLoading && <p className="text-white animate-pulse">Loading memes...</p>}
+            {!memesLoading && memes.length === 0 && (
+              <p className="text-gray-400">No memes found</p>
+            )}
+            {!memesLoading &&
+              memes.map((meme) => (
+                <MemeCard
+                  key={meme._id}
+                  meme={meme}
+                  isOpen={true}
+                  removememe={removeMeme}
+                />
+              ))}
+          </section>
         )}
 
-        {!loading &&
-          usermeme.map((meme) => (
-            <MemeCard
-              key={meme._id}
-              meme={meme}
-              isOpen={true} // set true if you want comments to show by default
-              removememe={removeMeme}
-            />
-          ))}
+        {/* Battle History Section */}
+        {activeTab === "battles" && (
+          <section>
+            <h2 className="text-xl font-semibold mb-4 text-white">Battle History</h2>
+            <BattleHistory battles={battles} loading={battlesLoading} />
+          </section>
+        )}
+
+        {/* Challenge Section */}
+        {activeTab === "challenge" && (
+          <section>
+            <h2 className="text-xl font-semibold mb-4 text-white">Challenges</h2>
+            <p className="text-gray-400">Coming soon...</p>
+          </section>
+        )}
       </div>
     </div>
   );
 }
+
+export default Page;
